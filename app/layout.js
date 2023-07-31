@@ -1,8 +1,9 @@
 import Image from "next/image";
-import "./globals.css";
-import styles from "./page.module.css";
-import { Inter } from "next/font/google";
 import Link from "next/link";
+import { Inter } from "next/font/google";
+import { Providers } from "./providers";
+import styles from "./page.module.css";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,7 @@ export default function RootLayout({ children }) {
             />
           </Link>
         </nav>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

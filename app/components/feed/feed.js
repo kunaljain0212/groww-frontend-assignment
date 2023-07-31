@@ -1,18 +1,27 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Image from "next/image";
 import FeedCard from "../feed-card";
-import { unsplashAPIToken } from "@/app/utils/constants";
-import styles from "./feed.module.css";
 import fetchImagesFromUnsplash from "@/app/services/fetchImagesFromUnsplash";
+import {
+  setPhotosLoading,
+  setPhotosLoadingFailure,
+  setPhotosLoadingSuccess,
+} from "@/app/store/slices/unsplashSlice";
+import styles from "./feed.module.css";
 
 export default function Feed({ isUserProfile, username }) {
   const [images, setImages] = useState([]);
   const [isListView, setIsListView] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
+
   const cardRef = useRef();
+
+  const dispatch = useDispatch();
+  const { isPhotosLoading, error } = useSelector((state) => state.unsplash);
 
   function toggleView() {
     setIsListView((prevState) => !prevState);
@@ -23,8 +32,13 @@ export default function Feed({ isUserProfile, username }) {
   }
 
   async function getPhotos() {
+    dispatch(setPhotosLoading());
     const res = await fetchImagesFromUnsplash(username, page, isUserProfile);
+    if (!res.ok) {
+      dispatch(setPhotosLoadingFailure("Error fetching photos from Unsplash"));
+    }
     const data = await res.json();
+    dispatch(setPhotosLoadingSuccess());
     setImages((prev) => [...prev, ...data]);
     setHasMore(true);
   }
@@ -73,6 +87,7 @@ export default function Feed({ isUserProfile, username }) {
           />
         );
       })}
+      {isPhotosLoading && <p>Loading...</p>}
       <div ref={cardRef} className={styles.separator}></div>
     </div>
   );

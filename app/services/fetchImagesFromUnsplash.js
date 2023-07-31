@@ -11,8 +11,5 @@ export default async function fetchImagesFromUnsplash(
       : `https://api.unsplash.com/photos?page=${page}&&per_page=10&&client_id=${unsplashAPIToken}`,
     { next: { revalidate: 30 } }
   );
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
   return res;
 }
