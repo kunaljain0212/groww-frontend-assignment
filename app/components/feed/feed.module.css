@@ -25,6 +25,7 @@
   height: 3rem;
   width: 3rem;
   z-index: 100;
+  cursor: pointer;
 }
 
 /* Mobile */
