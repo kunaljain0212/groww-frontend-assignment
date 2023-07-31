@@ -1,0 +1,1 @@
+export const unsplashAPIToken = process.env.NEXT_PUBLIC_UNSPLASH_API_TOKEN;

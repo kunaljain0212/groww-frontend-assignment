@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import FeedCard from "../feed-card";
 import styles from "./feed.module.css";
+import { unsplashAPIToken } from "@/app/utils/constants";
 
 export default function Feed({ isUserProfile, username }) {
   const [images, setImages] = useState([]);
@@ -23,8 +24,8 @@ export default function Feed({ isUserProfile, username }) {
   async function getPhotos() {
     const res = await fetch(
       isUserProfile
-        ? `https://api.unsplash.com/users/${username}/photos?page=${page}&&per_page=10&&client_id=mNWyX3YH8mMSq4XVja87Vlf1AUipq21-PQRPNn3bgs4`
-        : `https://api.unsplash.com/photos?page=${page}&&per_page=10&&client_id=mNWyX3YH8mMSq4XVja87Vlf1AUipq21-PQRPNn3bgs4`,
+        ? `https://api.unsplash.com/users/${username}/photos?page=${page}&&per_page=10&&client_id=${unsplashAPIToken}`
+        : `https://api.unsplash.com/photos?page=${page}&&per_page=10&&client_id=${unsplashAPIToken}`,
       { next: { revalidate: 30 } }
     );
     if (!res.ok) {
