@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profilePhoto {
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
+  border-radius: 10rem;
+}
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.location {
+  font-size: small;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .profile {
+    margin: auto;
+  }
+}
