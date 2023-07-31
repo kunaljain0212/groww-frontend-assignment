@@ -5,6 +5,7 @@ import Image from "next/image";
 import FeedCard from "../feed-card";
 import { unsplashAPIToken } from "@/app/utils/constants";
 import styles from "./feed.module.css";
+import fetchImagesFromUnsplash from "@/app/services/fetchImagesFromUnsplash";
 
 export default function Feed({ isUserProfile, username }) {
   const [images, setImages] = useState([]);
@@ -22,15 +23,7 @@ export default function Feed({ isUserProfile, username }) {
   }
 
   async function getPhotos() {
-    const res = await fetch(
-      isUserProfile
-        ? `https://api.unsplash.com/users/${username}/photos?page=${page}&&per_page=10&&client_id=${unsplashAPIToken}`
-        : `https://api.unsplash.com/photos?page=${page}&&per_page=10&&client_id=${unsplashAPIToken}`,
-      { next: { revalidate: 30 } }
-    );
-    if (!res.ok) {
-      throw new Error("Failed to fetch data");
-    }
+    const res = await fetchImagesFromUnsplash(username, page, isUserProfile);
     const data = await res.json();
     setImages((prev) => [...prev, ...data]);
     setHasMore(true);
