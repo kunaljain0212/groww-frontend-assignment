@@ -29,10 +29,6 @@
 
 /* Mobile */
 @media (max-width: 700px) {
-  .feed {
-    max-width: 320px;
-  }
-
   .feedGrid {
     -webkit-column-count: 1;
     -moz-column-count: 1;
