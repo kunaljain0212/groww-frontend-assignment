@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import FeedCard from "../feed-card";
-import styles from "./feed.module.css";
 import { unsplashAPIToken } from "@/app/utils/constants";
+import styles from "./feed.module.css";
 
 export default function Feed({ isUserProfile, username }) {
   const [images, setImages] = useState([]);
@@ -29,7 +29,6 @@ export default function Feed({ isUserProfile, username }) {
       { next: { revalidate: 30 } }
     );
     if (!res.ok) {
-      console.log("got vcalled");
       throw new Error("Failed to fetch data");
     }
     const data = await res.json();

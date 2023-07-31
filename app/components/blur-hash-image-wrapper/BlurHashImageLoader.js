@@ -6,7 +6,7 @@ import { customLoader } from "@/app/utils/custom-image-loader";
 export default function BlurHashImageWrapper({ orgUrl, width, height, alt }) {
   return (
     <Image
-      loader={customLoader}
+      // loader={customLoader}
       style={{
         width: "100%",
         height: "auto",
